@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales resolve</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar / Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <img src="logo.jpeg" >
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">Despre</a></li>
+          <li><a href="#services">Servicii</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="menu-icon" id="menuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero / Intro Section -->
+  <section id="home" class="hero-section">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1>Fa-ti afacerea auzita.</h1>
+        <p>Ofera un boost afacerii tale cu ajutorul nostru.</p>
+        <a href="#contact" class="btn">Contactează-ne</a>
+      </div>
+      <div class="hero-image">
+        <img src="logo.jpeg" alt="Hero Image" />
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Despre Section -->
+  <section id="about" class="about-section">
+    <div class="container about-inner">
+      <h2>Despre noi</h2>
+      <p>Credem că fiecare afacere, oricât de mică, merită să fie văzută, să crească și să inspire prin idei creative și strategii eficiente.</p>
+    </div>
+  </section>
+
+  <!-- Services / Servicii Section -->
+  <section id="services" class="services-section">
+    <div class="container services-inner">
+      <h2>Servicii</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Serviciu website</h3>
+          <p>Iti putem oferi pentru acest serviciu creerea unui website pentru afacerea ta,cat si mentenanta site ului respectiv.</p>
+        </div>
+        <div class="service-card">
+          <h3>Serviciu social-media</h3>
+          <p>Iti putem oferi publicitate in mediul online, postari, videoclipuri pe diverse platforme .</p>
+        </div>
+        <div class="service-card">
+          <h3>Serviciu mixt</h3>
+          <p>Daca nu stii ce sa alegi intre website si publicitate in social media, noi iti putem oferi un pachet care le face pe amandoua.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <div class="container contact-inner">
+      <h2>Contact</h2>
+      <p>Lasă un mesaj sau date de contact.</p>
+      <form>
+        <input type="text" placeholder="Nume" required />
+        <input type="email" placeholder="Email" required />
+        <textarea placeholder="Mesaj" required></textarea>
+        <button type="submit" class="btn">Trimite</button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    // Toggle navbar in mobile
+    const menuBtn = document.getElementById("menuBtn");
+    const navbar = document.querySelector(".navbar");
+
+    menuBtn.addEventListener("click", () => {
+      navbar.classList.toggle("open");
+    });
+  </script>
+</body>
+</html>
