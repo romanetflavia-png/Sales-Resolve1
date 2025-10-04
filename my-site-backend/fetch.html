@@ -1,3 +1,4 @@
+
 <form id="contactForm">
   <input name="name" type="text" placeholder="Nume" required />
   <input name="email" type="email" placeholder="Email" required />
@@ -39,3 +40,46 @@
     }
   });
 </script>
+
+<form id="contactForm">
+  <input name="name" type="text" placeholder="Nume" required />
+  <input name="email" type="email" placeholder="Email" required />
+  <textarea name="message" placeholder="Mesaj" required></textarea>
+  <button type="submit">Trimite</button>
+  <div id="formMsg" role="status"></div>
+</form>
+
+<script>
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('formMsg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = 'Se trimite...';
+
+    const data = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json();
+      if (res.ok) {
+        status.textContent = json.message || 'Trimis cu succes!';
+        form.reset();
+      } else {
+        status.textContent = json.error || 'Eroare la trimitere';
+      }
+    } catch (err) {
+      status.textContent = 'Eroare de rețea.';
+      console.error(err);
+    }
+  });
+</script>
+
