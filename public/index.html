@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Resolve</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <img src="logo.jpeg" alt="Logo" class="logo">
+      <nav class="navbar">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-section" id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Welcome to Sales Resolve</h1>
+        <p>Your solution to streamline sales and messages.</p>
+        <a href="#contact" class="btn">Contact Us</a>
+      </div>
+      <div class="hero-image">
+        <img src="logo.jpeg" alt="Hero Image">
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section" id="about">
+    <h2>About Us</h2>
+    <p>We help businesses manage sales efficiently.</p>
+  </section>
+
+  <section class="services-section" id="services">
+    <h2>Our Services</h2>
+    <div class="services-grid">
+      <div class="service-card">Service 1</div>
+      <div class="service-card">Service 2</div>
+      <div class="service-card">Service 3</div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <h2>Contact Us</h2>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        name: form.name.value,
+        message: form.message.value
+      };
+      await fetch('/api/messages', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      alert('Message sent!');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
