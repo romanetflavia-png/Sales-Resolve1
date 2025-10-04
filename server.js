@@ -66,3 +66,20 @@ app.get('*', (req, res) => {
 
 // Pornire server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Trimite mesajele către admin
+app.get("/api/messages", (req, res) => {
+  const messagesPath = path.join(__dirname, "public/my-site-backend/data/messages.json");
+  fs.readFile(messagesPath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Eroare citire messages.json:", err);
+      return res.status(500).json({ error: "Nu pot citi mesajele" });
+    }
+    try {
+      const messages = JSON.parse(data || "[]");
+      res.json(messages);
+    } catch (e) {
+      res.json([]);
+    }
+  });
+});
+
