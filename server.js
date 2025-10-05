@@ -40,7 +40,6 @@ function auth(req, res, next) {
 }
 
 // Path pentru mesaje
-const messagesFile = path.join(__dirname, "my-site-backend", "data", "messages.json");
 
 // GET mesaje (doar cu auth)
 app.get("/api/messages", auth, async (req, res) => {
@@ -49,16 +48,6 @@ app.get("/api/messages", auth, async (req, res) => {
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ status: "error", error: err.message });
-  }
-});
-  }
-  try {
-    const data = fs.readFileSync(messagesFile, "utf8");
-    const messages = JSON.parse(data || "[]");
-    res.json(messages);
-  } catch (e) {
-    console.error("Eroare la citirea mesajelor:", e);
-    res.json([]);
   }
 });
 
@@ -75,26 +64,11 @@ app.post("/api/messages", async (req, res) => {
     res.status(500).json({ status: "error", error: err.message });
   }
 });
-  if (fs.existsSync(messagesFile)) {
-    messages = JSON.parse(fs.readFileSync(messagesFile, "utf8"));
-  }
-
-  messages.push({
-    name,
-    email,
-    message,
-    date: new Date().toLocaleString()
-  });
-
-  fs.writeFileSync(messagesFile, JSON.stringify(messages, null, 2));
-  res.status(201).json({ status: "success" });
-});
 
 // Serve site-ul public
 app.use(express.static(path.join(__dirname, "public")));
 
 // Pornire server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-
 
 
