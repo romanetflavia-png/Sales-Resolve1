@@ -1,3 +1,7 @@
+const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL // Render sets this automatically
+});
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -78,4 +82,5 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Pornire server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
 
