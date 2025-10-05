@@ -95,6 +95,33 @@
     menuBtn.addEventListener("click", () => {
       navbar.classList.toggle("open");
     });
+    // Contact form submission
+const contactForm = document.getElementById("contactForm");
+const formStatus = document.getElementById("formStatus");
+contactForm.addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
+  try {
+    const res = await fetch("/api/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name, email, message })
+    });
+    if (res.ok) {
+      formStatus.textContent = "Mesaj trimis cu succes!";
+      contactForm.reset();
+    } else {
+      formStatus.textContent = "Eroare la trimiterea mesajului.";
+    }
+  } catch (err) {
+    formStatus.textContent = "Eroare la trimiterea mesajului.";
+  }
+});
   </script>
 </body>
 </html>
+
