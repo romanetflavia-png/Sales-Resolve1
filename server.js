@@ -43,9 +43,14 @@ function auth(req, res, next) {
 const messagesFile = path.join(__dirname, "my-site-backend", "data", "messages.json");
 
 // GET mesaje (doar cu auth)
-app.get("/api/messages", auth, (req, res) => {
-  if (!fs.existsSync(messagesFile)) {
-    return res.json([]);
+app.get("/api/messages", auth, async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM messages ORDER BY date DESC");
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ status: "error", error: err.message });
+  }
+});
   }
   try {
     const data = fs.readFileSync(messagesFile, "utf8");
@@ -58,10 +63,18 @@ app.get("/api/messages", auth, (req, res) => {
 });
 
 // POST mesaje (public - din formular)
-app.post("/api/messages", (req, res) => {
+app.post("/api/messages", async (req, res) => {
   const { name, email, message } = req.body;
-  let messages = [];
-
+  try {
+    await pool.query(
+      "INSERT INTO messages (name, email, message, date) VALUES ($1, $2, $3, NOW())",
+      [name, email, message]
+    );
+    res.status(201).json({ status: "success" });
+  } catch (err) {
+    res.status(500).json({ status: "error", error: err.message });
+  }
+});
   if (fs.existsSync(messagesFile)) {
     messages = JSON.parse(fs.readFileSync(messagesFile, "utf8"));
   }
@@ -82,5 +95,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Pornire server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
 
 
